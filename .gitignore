@@ -1,0 +1,80 @@
+#############################
+#      GLOBAL IGNORE        #
+#############################
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+#############################
+#       FRONT-END           #
+#############################
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Build
+dist/
+dist-ssr/
+
+# Ambientes locais
+*.local
+
+#############################
+#       BACK-END            #
+#############################
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ambiente virtual
+venv/
+.venv/
+
+# Env
+.env
+.env.*
+!.env.example
+
+# Banco SQLite (apenas se você NÃO quiser versionar)
+database.db
+
+# Migrations (se usar Alembic no futuro)
+alembic/
+alembic.ini
+
+#############################
+#       OUTROS              #
+#############################
+
+# Logs gerais
+logs/
+*.log
+
+# Cobertura de testes
+coverage/
+.coverage
+htmlcov/
+
+# Arquivos temporários
+*.tmp
+*.temp
+tmp/
