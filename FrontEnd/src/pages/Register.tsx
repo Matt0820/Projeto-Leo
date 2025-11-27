@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import "../styles/index.css";
 import Logo from '../assets/Logo-removebg-preview.png'
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
+import { FaApple } from "react-icons/fa";
 
 export default function RegisterPage() {
   const [form, setForm] = useState({
@@ -67,9 +70,9 @@ export default function RegisterPage() {
         </div>
 
         <div className="d-flex flex-column gap-2">
-          <button className="social-btn google">Entrar com Google</button>
-          <button className="social-btn github">Entrar com GitHub</button>
-          <button className="social-btn apple">Entrar com Apple</button>
+          <button className="social-btn google"> <FcGoogle size={20} /> Entrar com Google</button>
+          <button className="social-btn github"> <FaGithub size={20} /> Entrar com GitHub</button>
+          <button className="social-btn apple">  <FaApple size={20} /> Entrar com Apple</button>
         </div>
 
         <p className="mt-4 text-center" style={{ fontSize: "0.9rem" }}>
