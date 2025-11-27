@@ -1,4 +1,4 @@
-# 📘 Projeto LEO — Plataforma de Vídeos Educacionais
+# 📘 Projeto LEO
 
 Aplicação full-stack desenvolvida em **React + TypeScript** no frontend e **FastAPI (Python)** no backend.
 
