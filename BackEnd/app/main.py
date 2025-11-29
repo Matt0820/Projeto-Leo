@@ -1,34 +1,54 @@
-# main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.routes_auth import router as auth_router
+# Rotas
+from app.api.routes.auth_routes import router as auth_router
+from app.api.routes.music_routes import router as music_router
+from app.api.routes.spotify_routes import router as spotify_router
+
+# Banco
 from app.core.database import create_db_and_tables
 
-# Cria app
+# ============================================================
+# CONFIG APP
+# ============================================================
+
 app = FastAPI(title="Projeto Leo Backend")
 
-# 🔥 Configuração de CORS (adicione isso)
+# Origem do front-end (Vite)
 origins = [
     "http://localhost:5173",
-    "http://127.0.0.1:5173",
+    "http://127.0.0.1:5173"
 ]
 
+# CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,        # libera seu front-end
+    allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],          # libera todos os métodos (GET, POST, etc)
-    allow_headers=["*"],          # libera todos os headers
+    allow_methods=["*"],
+    allow_headers=["*"]
 )
 
-# Inclui rotas
-app.include_router(auth_router)
+# ============================================================
+# ROTAS
+# ============================================================
 
-# Cria DB + tabelas automaticamente
+app.include_router(auth_router)
+app.include_router(music_router)
+app.include_router(spotify_router)
+
+# ============================================================
+# BANCO DE DADOS
+# ============================================================
+
+# cria tabelas automaticamente
 create_db_and_tables()
 
-# Rota de teste
+# ============================================================
+# ROTA PADRÃO
+# ============================================================
+
 @app.get("/")
 async def root():
-    return {"message": "back-end funcionando"}
+    return {"message": "backend funcionando"}

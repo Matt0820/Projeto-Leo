@@ -4,10 +4,11 @@ import PlaylistCard from "../components/PlaylistCard/PlaylistCard";
 import { getTopPlaylists, getPlaylistTracks } from "../services/spotify";
 import type { SpotifyPlaylist } from "../services/spotify";
 import { usePlayer } from "../context/PlayerContext";
-import "./player.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./player.css";
 
-export default function Player() {
+export default function Explore() {
+  const [categories, setCategories] = useState<string[]>(["Pop", "Rock", "Lo-Fi", "Hip-Hop", "Eletrônica", "Indie"]);
   const [playlists, setPlaylists] = useState<SpotifyPlaylist[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -15,24 +16,20 @@ export default function Player() {
   const { playTracks } = usePlayer();
 
   useEffect(() => {
-    const fetchPlaylists = async () => {
+    const fetchData = async () => {
       try {
         setLoading(true);
         const data = await getTopPlaylists();
         setPlaylists(data);
-
-        if (data.length === 0) {
-          setError("Nenhuma playlist encontrada");
-        }
       } catch (err) {
         console.error(err);
-        setError("Erro ao carregar playlists");
+        setError("Erro ao carregar explorações");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchPlaylists();
+    fetchData();
   }, []);
 
   const handlePlaylistClick = async (playlist: SpotifyPlaylist) => {
@@ -61,15 +58,15 @@ export default function Player() {
 
         {/* HEADER */}
         <header className="text-center mb-4 player-header">
-          <h1 className="fw-bold">🎵 Seu Espaço Musical</h1>
-          <p className="subtitle">Descubra as melhores playlists do Spotify em tempo real</p>
+          <h1 className="fw-bold">🔎 Explorar</h1>
+          <p className="subtitle">Descubra novas playlists por categorias e tendências</p>
         </header>
 
         {/* LOADING */}
         {loading && (
           <section className="text-center my-5">
             <div className="spinner-border mb-3" role="status"></div>
-            <p className="text-muted">Carregando playlists...</p>
+            <p className="text-muted">Carregando...</p>
           </section>
         )}
 
@@ -78,26 +75,24 @@ export default function Player() {
           <div className="alert alert-warning text-center">⚠️ {error}</div>
         )}
 
-        {/* CONTEÚDO PRINCIPAL */}
-        {!loading && playlists.length > 0 && (
-          <main>
-
-            {/* RECOMENDADOS */}
+        {!loading && (
+          <>
+            {/* CATEGORIAS */}
             <section className="mb-5">
-              <h2 className="mb-3">✨ Recomendados para Você</h2>
+              <h2 className="mb-3">🌈 Categorias</h2>
 
-              <div className="row g-3">
-                {playlists.slice(0, 5).map((playlist) => (
-                  <div key={playlist.id} className="col-6 col-sm-4 col-md-3 col-lg-2">
-                    <PlaylistCard playlist={playlist} onClick={handlePlaylistClick} />
-                  </div>
+              <div className="d-flex flex-wrap gap-2">
+                {categories.map((cat) => (
+                  <span key={cat} className="badge bg-primary p-2 px-3 fs-6 rounded-pill">
+                    {cat}
+                  </span>
                 ))}
               </div>
             </section>
 
-            {/* TODAS AS PLAYLISTS */}
+            {/* PLAYLISTS */}
             <section className="mb-5">
-              <h2 className="mb-3">🎶 Todas as Playlists</h2>
+              <h2 className="mb-3">🔥 Tendências</h2>
 
               <div className="row g-3">
                 {playlists.map((playlist) => (
@@ -107,16 +102,8 @@ export default function Player() {
                 ))}
               </div>
             </section>
-          </main>
+          </>
         )}
-
-        {/* EMPTY STATE */}
-        {!loading && playlists.length === 0 && !error && (
-          <div className="text-center mt-5 text-muted">
-            <p>Nenhuma playlist disponível no momento</p>
-          </div>
-        )}
-
       </div>
     </Layout>
   );

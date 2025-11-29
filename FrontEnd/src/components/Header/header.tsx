@@ -28,17 +28,17 @@ export default function Header() {
 
             <ul className="dropdown-menu custom-dropdown-menu">
               <li>
-                <a className="dropdown-item" href="#">
+                <a className="dropdown-item" href="/profile">
                   Perfil
                 </a>
               </li>
               <li>
-                <a className="dropdown-item" href="#">
+                <a className="dropdown-item" href="/player">
                   Player
                 </a>
               </li>
               <li>
-                <a className="dropdown-item" href="#">
+                <a className="dropdown-item" href="/settings">
                   Configurações
                 </a>
               </li>
@@ -48,7 +48,7 @@ export default function Header() {
               </li>
 
               <li>
-                <a className="dropdown-item" href="#">
+                <a className="dropdown-item" href="/logout">
                   Sair
                 </a>
               </li>
@@ -72,17 +72,17 @@ export default function Header() {
           <div className="collapse navbar-collapse" id="navbarArea">
             <ul className="navbar-nav ms-3">
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="/home">
                   Home
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="/explore">
                   Explorar
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="/player">
                   Biblioteca
                 </a>
               </li>

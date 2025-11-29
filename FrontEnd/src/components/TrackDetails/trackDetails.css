@@ -1,0 +1,244 @@
+.details-fab {
+  position: fixed;
+  bottom: 120px;
+  right: 2rem;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(120deg, #6A00FF, #FF3D7A);
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(255, 61, 122, 0.4);
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+.details-fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(255, 61, 122, 0.6);
+}
+
+.track-details-modal {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 350px;
+  height: 100vh;
+  background: rgba(20, 20, 20, 0.98);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.3s ease;
+  overflow: hidden;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.track-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.track-details-header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #FFFFFF;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #8B8B8B;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+  color: #FF3D7A;
+}
+
+.track-details-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+}
+
+.track-cover-large {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.track-cover-large img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.track-info-section {
+  margin-bottom: 2rem;
+}
+
+.track-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.4;
+}
+
+.track-artist-details {
+  font-size: 0.95rem;
+  color: #8B8B8B;
+  margin: 0 0 0.5rem 0;
+}
+
+.track-duration {
+  font-size: 0.85rem;
+  color: #666666;
+  margin: 0;
+}
+
+.queue-section {
+  margin-top: 1.5rem;
+}
+
+.queue-section h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.queue-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.queue-item {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  transition: all 0.2s ease;
+}
+
+.queue-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.queue-item.active {
+  background: rgba(255, 61, 122, 0.15);
+  border-left: 3px solid #FF3D7A;
+}
+
+.queue-index {
+  font-size: 0.8rem;
+  color: #8B8B8B;
+  min-width: 25px;
+  text-align: center;
+}
+
+.queue-item.active .queue-index {
+  color: #FF3D7A;
+  font-weight: 700;
+}
+
+.queue-track-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.queue-track-name {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #FFFFFF;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.queue-track-artist {
+  font-size: 0.75rem;
+  color: #8B8B8B;
+  margin: 0.25rem 0 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.queue-track-duration {
+  font-size: 0.75rem;
+  color: #666666;
+  white-space: nowrap;
+}
+
+.empty-queue {
+  text-align: center;
+  color: #666666;
+  font-size: 0.9rem;
+  margin: 1rem 0;
+}
+
+/* Scrollbar */
+.track-details-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.track-details-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.track-details-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+
+.track-details-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .track-details-modal {
+    width: 100%;
+  }
+
+  .details-fab {
+    bottom: 100px;
+    right: 1rem;
+  }
+}

@@ -1,38 +1,38 @@
 import { useEffect, useState } from "react";
 import Layout from "../components/Layout/Layout";
 import PlaylistCard from "../components/PlaylistCard/PlaylistCard";
-import { getTopPlaylists, getPlaylistTracks } from "../services/spotify";
-import type { SpotifyPlaylist } from "../services/spotify";
 import { usePlayer } from "../context/PlayerContext";
-import "./player.css";
+import { getFavoritePlaylists, getPlaylistTracks } from "../services/spotify";
+import type { SpotifyPlaylist } from "../services/spotify";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./player.css";
 
-export default function Player() {
-  const [playlists, setPlaylists] = useState<SpotifyPlaylist[]>([]);
+export default function Favorites() {
+  const [favorites, setFavorites] = useState<SpotifyPlaylist[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const { playTracks } = usePlayer();
 
   useEffect(() => {
-    const fetchPlaylists = async () => {
+    const loadFavorites = async () => {
       try {
         setLoading(true);
-        const data = await getTopPlaylists();
-        setPlaylists(data);
+        const data = await getFavoritePlaylists(); // 🔥 Função que você cria no serviço
+        setFavorites(data);
 
         if (data.length === 0) {
-          setError("Nenhuma playlist encontrada");
+          setError("Você ainda não favoritou nenhuma playlist");
         }
       } catch (err) {
         console.error(err);
-        setError("Erro ao carregar playlists");
+        setError("Erro ao carregar favoritos");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchPlaylists();
+    loadFavorites();
   }, []);
 
   const handlePlaylistClick = async (playlist: SpotifyPlaylist) => {
@@ -61,15 +61,15 @@ export default function Player() {
 
         {/* HEADER */}
         <header className="text-center mb-4 player-header">
-          <h1 className="fw-bold">🎵 Seu Espaço Musical</h1>
-          <p className="subtitle">Descubra as melhores playlists do Spotify em tempo real</p>
+          <h1 className="fw-bold">❤️ Playlists Favoritas</h1>
+          <p className="subtitle">Suas playlists salvas e favoritas</p>
         </header>
 
         {/* LOADING */}
         {loading && (
           <section className="text-center my-5">
             <div className="spinner-border mb-3" role="status"></div>
-            <p className="text-muted">Carregando playlists...</p>
+            <p className="text-muted">Carregando favoritos...</p>
           </section>
         )}
 
@@ -78,29 +78,14 @@ export default function Player() {
           <div className="alert alert-warning text-center">⚠️ {error}</div>
         )}
 
-        {/* CONTEÚDO PRINCIPAL */}
-        {!loading && playlists.length > 0 && (
+        {/* LISTAGEM */}
+        {!loading && favorites.length > 0 && (
           <main>
-
-            {/* RECOMENDADOS */}
             <section className="mb-5">
-              <h2 className="mb-3">✨ Recomendados para Você</h2>
+              <h2 className="mb-3">⭐ Suas Playlists</h2>
 
               <div className="row g-3">
-                {playlists.slice(0, 5).map((playlist) => (
-                  <div key={playlist.id} className="col-6 col-sm-4 col-md-3 col-lg-2">
-                    <PlaylistCard playlist={playlist} onClick={handlePlaylistClick} />
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* TODAS AS PLAYLISTS */}
-            <section className="mb-5">
-              <h2 className="mb-3">🎶 Todas as Playlists</h2>
-
-              <div className="row g-3">
-                {playlists.map((playlist) => (
+                {favorites.map((playlist) => (
                   <div key={playlist.id} className="col-6 col-sm-4 col-md-3 col-lg-2">
                     <PlaylistCard playlist={playlist} onClick={handlePlaylistClick} />
                   </div>
@@ -110,13 +95,12 @@ export default function Player() {
           </main>
         )}
 
-        {/* EMPTY STATE */}
-        {!loading && playlists.length === 0 && !error && (
+        {/* EMPTY */}
+        {!loading && favorites.length === 0 && !error && (
           <div className="text-center mt-5 text-muted">
-            <p>Nenhuma playlist disponível no momento</p>
+            <p>Nenhuma playlist favoritada ainda</p>
           </div>
         )}
-
       </div>
     </Layout>
   );

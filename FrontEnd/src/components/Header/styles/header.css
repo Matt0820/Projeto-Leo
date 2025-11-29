@@ -246,10 +246,14 @@ body {
   border-color: rgba(255, 255, 255, 0.25);
 }
 
-.bg-all {
-  min-height: 100vh;
-  background: #0E0E0E;
-  display: block;
+.header-wrapper {
+  background-color: rgba(20, 20, 20, 0.8) !important;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 .bg-all::before {
   content: "";
@@ -260,7 +264,7 @@ body {
 }
 
 .navbar {
-  background-color: rgba(0, 0, 0, 0.205) !important;
+  background-color: transparent !important;
 }
 .navbar * {
   color: #FFFFFF !important;
@@ -269,8 +273,8 @@ body {
   color: #FF3D7A !important;
 }
 .navbar .dropdown-menu {
-  background-color: rgba(0, 0, 0, 0.205) !important;
-  border: none !important;
+  background-color: rgba(20, 20, 20, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
   -webkit-backdrop-filter: blur(8px);
           backdrop-filter: blur(8px);
 }

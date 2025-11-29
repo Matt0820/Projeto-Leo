@@ -4,21 +4,46 @@ import Logo from '../assets/Logo-removebg-preview.png'
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { FaApple } from "react-icons/fa";
+import { registerUser } from "../services/auth";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterPage() {
   const [form, setForm] = useState({
-    name: "",
+    username: "",
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(form);
+    
+    if (!form.username || !form.email || !form.password) {
+      alert("Preencha todos os campos!");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const result = await registerUser(form);
+      console.log("Registro sucesso:", result);
+      
+      if (result.access_token) {
+        localStorage.setItem("token", result.access_token);
+        navigate("/home");
+      }
+    } catch (err: any) {
+      console.error("Erro no registro:", err);
+      const msg = err?.response?.data?.detail || "Erro ao registrar";
+      alert(msg);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -35,11 +60,12 @@ export default function RegisterPage() {
         <form onSubmit={handleSubmit} className="d-flex flex-column gap-3">
           <input
             type="text"
-            name="name"
+            name="username"
             className="form-control login-input"
-            placeholder="Seu nome"
-            value={form.name}
+            placeholder="Seu username"
+            value={form.username}
             onChange={handleChange}
+            required
           />
 
           <input
@@ -49,6 +75,7 @@ export default function RegisterPage() {
             placeholder="Email"
             value={form.email}
             onChange={handleChange}
+            required
           />
 
           <input
@@ -58,10 +85,15 @@ export default function RegisterPage() {
             placeholder="Senha"
             value={form.password}
             onChange={handleChange}
+            required
           />
 
-          <button type="submit" className="primary mt-2 w-100">
-            Registrar
+          <button 
+            type="submit" 
+            className="primary mt-2 w-100"
+            disabled={loading}
+          >
+            {loading ? "Registrando..." : "Registrar"}
           </button>
         </form>
 
